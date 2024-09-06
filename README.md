@@ -1,12 +1,8 @@
-Git is a distributed version control system.
-Git is free software distributed under the GPL.
-
+# git学习
+## 常用命令
 ```js
 git init
-// 添加到暂存区
-git add  README.md
-// 提交
-git commit -m "first commit"
+// 查看状态
 git status
 git diff
 // 查看提交历史
@@ -19,13 +15,31 @@ git reset --hard HEAD^
 
 // 撤销暂存区的修改，重新放回工作区
 git reset HEAD README.md
-  
-  // 撤销某一个文件的修改
+
+// 撤销某一个文件的修改
 git checkout -- README.md
+
+// 添加到暂存区
+git add  README.md
+
+// 提交
+git commit -m "first commit"
+
+// 推送
+git push
+
 ```
 
+## 知识点
 leangit是git工作区，.git是版本库.
 .git里面index叫暂存区
 
 HEAD ：指向当前分支
+
+
+## git学习地址
++ [ 廖雪峰git教程 ](https://liaoxuefeng.com/books/git/branch/create/index.html)
++ [git知识大全](https://gitee.com/help/categories/43)
++ [Pro Git 中文版 码云](https://gitee.com/progit/)
++ [learnGitBranching](https://github.com/pcottle/learnGitBranching)
 
