@@ -1,4 +1,15 @@
-# 1. setup
+# API
+官网：[Vue3 API盘点](https://cn.vuejs.org/api/)
+
+## 组合式API
+Composition API是V3和V2.7的内置功能，具体是指一系列API的集合，可以使用函数的方式书写vue组件（vue2是声明选项式），它包括如下api：
+* 响应式API（ref、reactive）
+* 生命周期钩子（onMounted、onUnmounted）
+* 依赖注入（provide、inject）
+
+**Vue3写法最佳实践：单文件组件+ 组合式API+`<script setup>`语法糖+TypeScript**
+
+###  setup
 相比于普通的` <script>` 语法，`<script setup>`具有更多优势：
 
 + 更少的样板内容，更简洁的代码。
@@ -6,23 +17,22 @@
 + 更好的运行时性能 (其模板会被编译成同一作用域内的渲染函数，避免了渲染上下文代理对象)。
 + 更好的 IDE 类型推导性能 (减少了语言服务器从代码中抽取类型的工作)
 
-## 1.1. `setup() vs <script setup>`
+#### `setup() vs <script setup>`
 setup()钩子函数适用场景
 1. 在非单文件组件中使用组合式api时
 2. 需要在选项式api中集成组合式api时
 
 除此之外，官方都推荐使用优先使用`<script setup>`。`<script setup>`是在单文件组件中使用组合式API的编译时语法糖。
 
-
-## 1.2.`<script setup>` 
+#### `<script setup>` 
 `<script setup>` 中的代码会在每次组件实例被创建的时候执行。
 它会在解析属性的时候将顶层的变量声明提升到当前组件的 `<template>` 中。
 任何在`<script setup>` 声明的顶层的绑定 (包括变量，函数声明，以及 import 导入的内容（组件）) 都能在模板中直接使用。
 **不用使用this**。[详见](https://cn.vuejs.org/api/sfc-script-setup)
 
 
-# 2.响应式基础
-## 2.1.ref
+### 响应式基础
+#### ref
 ref 函数用来创建响应式的数据。它接收一个参数，并返回一个包含该参数的响应式数据。
 1. 可以使用ref()方法创建一个可以使用任何值类型的响应式。它将传入的参数包装成一个带.value属性的ref对象。声明Object类型时内部通过reactive来转为代理对象。
 2. ref能创造一种对任意值的“引用”，并且不丢失响应性，此功能常用于将逻辑提取到组合函数中。
@@ -31,7 +41,7 @@ ref 函数用来创建响应式的数据。它接收一个参数，并返回一�
 1. 可以响应式的替换整个对象（重写）。
 2. 解构或者被传入函数时，不会丢失响应性。
 
-## 2.2.reactive
+#### reactive
 reactive 函数用来创建响应式的数据。它接收一个参数，并返回一个包含该参数的响应式数据。
 1. 可以使用reactive() 函数创建一个响应式对象或数组。
 2. reactive仅对对象类型有效（对象、数组、Map、Set），原始类型（string、number、boolean）无效。
@@ -42,7 +52,7 @@ reactive 函数用来创建响应式的数据。它接收一个参数，并返�
 3. 将响应式变量解构，之后修改值，不会影响原始响应式变量。
 4. 将响应式变量传入一个函数时，之后的调整不影响响应式变量。
 
-## 2.3.computed
+#### computed
 computed 函数用来创建计算属性。它接收一个参数，并返回一个包含该参数的响应式数据。
 使用场景：常用于计算衍生值。
 默认是只读的。
@@ -98,41 +108,90 @@ return返回的是一个计算属性ref，其他方法中可通过hasBook.value�
 ```
 
 
-## 2.4.watchEffect
+#### watchEffect
 watchEffect 函数用来监听响应式数据的变化。它接收一个参数，并返回一个包含该参数的响应式数据。
-## 2.5.watch
+
+侦听器使用场景：计算属性不能做的事，可以通过侦听器进行，例如更改Dom，或者根据异步操作的结果修改另一个值。
+
+2者不同：
+1. watch：
+   a. 懒执行
+   b. 既要指明监视的属性，也要指明监视的回调
+2. watchEffect：
+   a. 在创建侦听器时，立即执行一遍回调
+   b. 不用指明监视哪个属性，监视的回调中用到哪个属性，那就监视哪个属性
+
+#### watch
 watch 函数用来监听响应式数据的变化。它接收两个参数，并返回一个包含该参数的响应式数据。
-# 2.6.toRefs
+#### toRefs
 toRefs 函数用来将响应式数据转换为普通对象。它接收一个参数，并返回一个包含该参数的响应式数据。
-# 2.7.toRef
+#### toRef
 toRef 函数用来将响应式数据转换为普通对象。它接收两个参数，并返回一个包含该参数的响应式数据。
-# 2.8.isRef
+#### isRef
 isRef 函数用来判断一个值是否是一个响应式数据。它接收一个参数，并返回一个包含该参数的响应式数据。
-# 2.9.isReactive
+#### isReactive
 isReactive 函数用来判断一个值是否是一个响应式数据。它接收一个参数，并返回一个包含该参数的响应式数据。
 
-# 3.生命周期
-## 3.1.beforeCreate
-在组件创建之前执行。
+### [生命周期](https://cn.vuejs.org/api/composition-api-lifecycle)
+onMounted()
+注册一个回调函数，在组件挂载完成后执行。通常用于执行需要访问组件所渲染的 DOM 树相关的副作用。
 
-## 3.2.created
-在组件创建之后执行。
+onUnmounted()
+注册一个回调函数，在组件实例被卸载之后调用。
 
-## 3.3.beforeMount
-在组件挂载到 DOM 前执行。
+onBeforeMount()
+注册一个钩子，在组件被挂载之前被调用。
 
-## 3.4.mounted
-在组件挂载到 DOM 后执行。
+onActivated()
+注册一个回调函数，若组件实例是` <KeepAlive> `缓存树的一部分，当组件被插入到 DOM 中时调用。
 
-## 3.5.beforeUpdate
-在组件更新前执行。
+onDeactivated()
+注册一个回调函数，若组件实例是 `<KeepAlive>` 缓存树的一部分，当组件从 DOM 中被移除时调用。
 
-## 3.6.updated
-在组件更新后执行。
+### 依赖注入
++ provide()
++ inject()
++ hasInjectionContext()
++ 
+provide() 提供一个值，可以被后代组件注入。
+主要为解决props只能逐级透传的问题。父组件作为所有子组件的依赖提供者，后续所有的后代组件都可以使用
+![img.png](./images/inject.png)
 
-## 3.7.beforeDestroy
-在组件销毁前执行。
+父组件
+```vue
+<script setup>
+import { ref, provide } from 'vue'
 
-## 3.8.destroyed
-在组件销毁后执行。
+
+// 提供响应式的值
+const count = ref(0)
+provide('count', count)
+
+
+const location = ref('North Pole')
+function updateLocation() {
+  location.value = 'South Pole'
+}
+provide('location', {
+  location,
+  updateLocation
+})
+
+</script>
+```
+后代组件
+```vue
+<!-- 在注入方组件 -->
+<script setup>
+  import { inject } from 'vue'
+
+  const { location, updateLocation } = inject('location');
+  const count = inject('count');
+</script>
+
+<template>
+  <button @click="updateLocation">{{ location }}</button>
+  <div>{{count}}</div>
+</template>
+```
 
