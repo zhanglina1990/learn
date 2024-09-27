@@ -15,6 +15,7 @@
     { "type": "tool", "section": "🚀 tool | 工具升级" },
     { "type": "ci", "section": "👷 Continuous Integration | CI 配置" }
   ],
+  "issueUrlFormat": "https://jira.zoomkey.com.cn/browse/{{id}}",
   "skip": {
     "bump": false,
     "changelog": false,
