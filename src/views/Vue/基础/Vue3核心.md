@@ -152,10 +152,17 @@ onDeactivated()
 + provide()
 + inject()
 + hasInjectionContext()
-+ 
+
 provide() 提供一个值，可以被后代组件注入。
 主要为解决props只能逐级透传的问题。父组件作为所有子组件的依赖提供者，后续所有的后代组件都可以使用
-![img.png](./images/inject.png)
+
+* 之前
+
+![img.png](../images/inject.png)
+
+* 现在
+
+![img1.png](../images/inject2.png)
 
 父组件
 ```vue
@@ -195,3 +202,10 @@ provide('location', {
 </template>
 ```
 
+
+# 练习题
+编写一个带有排序和过滤条件的表格 效果参考：
+![img.png](../images/练习题效果图.png)
+
+
+[练习题 参考解决方案](练习题参考答案.md)
