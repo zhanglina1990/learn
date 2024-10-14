@@ -12,6 +12,11 @@ git reflog
 
 // 回退到上一个版本
 git reset --hard HEAD^
+// 回退到当前版本的前两个版本
+git reset HEAD^^ 
+// 回退到当前版本的前100个版本
+git reset HEAD~100
+// 如果增加--hard参数会重置工作区和暂存区，未提交的变更将被不可逆的丢弃
 
 // 撤销暂存区的修改，重新放回工作区
 git reset HEAD README.md
