@@ -12,6 +12,9 @@
 + [x] Java
 + [x] Node
 + [x] Vue
++ [x] JavaScript
++ [x] HTML
++ [x] CSS
 
 
 ## 开发
