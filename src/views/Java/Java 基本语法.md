@@ -50,8 +50,6 @@ double d = 3.14;
 * 音、视频-》二进制
 
 
-
-
 ## 数据类型
 1. 基本数据类型：byte、short、int、long、float、double、char、boolean
 2. 引用数据类型：类、接口、数组
@@ -59,8 +57,69 @@ double d = 3.14;
 ![img.png](./images/基本数据类型.png)
 
 
+## 例子
+写出一个for循环打印 1 到 10 的数字
+```java
+for (int i = 1; i <= 10; i++) {
+    System.out.println(i);
+}
+```
 
-## 关键字、标识符
+## 练习
+根据用户输入的成绩判断等级（90 分及以上为 A，80 - 89 分为 B，70 - 79 分为 C，60 - 69 分为 D，60 分以下为 E）
+```java
+import java.util.Scanner;
+
+public class GradeChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入成绩:");
+        int score = scanner.nextInt();
+
+        // 使用 if - else 语句判断等级
+        if (score >= 90) {
+            System.out.println("A");
+        } else if (score >= 80) {
+            System.out.println("B");
+        } else if (score >= 70) {
+            System.out.println("C");
+        } else if (score >= 60) {
+            System.out.println("D");
+        } else {
+            System.out.println("E");
+        }
+
+        // 使用 switch - case 语句判断等级（需先对成绩进行处理，使其符合 switch - case 的等值判断要求）
+        int level = score / 10;
+        switch (level) {
+            case 10:
+            case 9:
+                System.out.println("A");
+                break;
+            case 8:
+                System.out.println("B");
+                break;
+            case 7:
+                System.out.println("C");
+                break;
+            case 6:
+                System.out.println("D");
+                break;
+            default:
+                System.out.println("E");
+                break;
+        }
+        scanner.close();
+    }
+}
+```
+### 代码解释
+在 Java 中，Scanner是 Java 提供的一个用于获取用户输入的类，它位于java.util包中 。以下详细介绍：
+
+> 作用：Scanner类主要用于解析基本类型和字符串。它允许程序从多种输入源读取数据，包括标准输入（键盘输入）、文件输入等 。例如，当你需要获取用户在控制台输入的数字、字符串等信息时，就可以使用Scanner类。
+* System.in代表标准输入流，即键盘输入
+* nextInt()：用于读取一个整数。例如，int num = scanner.nextInt(); 程序执行到这一行时，会等待用户在控制台输入一个整数，输入完成并按下回车键后，输入的整数就会被赋值给num变量
+* 在 Java 中，当两个整数进行除法运算时，结果会取整数部分，不会进行四舍五入 
 
 
 
